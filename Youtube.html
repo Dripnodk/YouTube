@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DRIPNO Tools - Trending Videos</title>
+    <!-- Link to Google Fonts for Poppins font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        /* Header */
+        header {
+            background-color: #FF0000;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Logo and Text */
+        header .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Replace this with "DRIPNO Tools" text */
+        header .logo {
+            font-size: 28px;
+            font-weight: 600;
+            color: white;
+            text-transform: uppercase;
+            margin-left: 10px;
+        }
+
+        header nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        header nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        header nav a:hover {
+            background-color: #d43f00;
+        }
+
+        /* Container */
+        .container {
+            width: 90%;
+            margin: 20px auto;
+        }
+
+        /* Center the Title */
+        .title-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .title-container h1 {
+            font-size: 36px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* Video Grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        /* Video Item */
+        .video-item {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .video-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .video-details {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .video-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .video-title:hover {
+            color: #FF0000;
+        }
+
+        /* Select Country Dropdown */
+        .header-options {
+            display: flex;
+            gap: 20px;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .header-options select {
+            padding: 8px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+
+            .category-select {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header .logo {
+                font-size: 24px;
+            }
+
+            .video-item {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header (YouTube-like) -->
+    <header>
+        <div class="logo-container">
+            <!-- Removed the logo image, and added the new text "DRIPNO Tools" -->
+            <div class="logo">DRIPNO Tools</div>
+        </div>
+
+        <!-- Header navigation (Now, Music, Gaming options) -->
+        <nav>
+            <a href="#" onclick="loadTrendingVideos('now')">Now</a>
+            <a href="#" onclick="loadTrendingVideos('10')">Music</a>
+            <a href="#" onclick="loadTrendingVideos('20')">Gaming</a>
+        </nav>
+
+        <!-- Dropdown for Select Country -->
+        <div class="header-options">
+            <select id="country-select" onchange="loadTrendingVideosByCountry()">
+                <option value="IN">India</option>
+                <option value="US">USA</option>
+                <option value="GB">United Kingdom</option>
+                <option value="CA">Canada</option>
+                <option value="AU">Australia</option>
+                <option value="DE">Germany</option>
+                <option value="FR">France</option>
+                <option value="JP">Japan</option>
+                <option value="KR">South Korea</option>
+                <option value="BR">Brazil</option>
+                <option value="ZA">South Africa</option>
+                <option value="NG">Nigeria</option>
+                <option value="MX">Mexico</option>
+                <option value="RU">Russia</option>
+                <option value="IT">Italy</option>
+                <option value="ES">Spain</option>
+                <option value="SE">Sweden</option>
+                <option value="SG">Singapore</option>
+                <option value="CN">China</option>
+                <option value="PT">Portugal</option>
+                <option value="AR">Argentina</option>
+                <option value="NO">Norway</option>
+                <option value="NL">Netherlands</option>
+                <option value="BE">Belgium</option>
+                <option value="PL">Poland</option>
+                <option value="DK">Denmark</option>
+                <option value="FI">Finland</option>
+                <option value="GR">Greece</option>
+                <option value="HU">Hungary</option>
+                <option value="TR">Turkey</option>
+                <option value="AE">United Arab Emirates</option>
+                <option value="KR">South Korea</option>
+                <option value="PH">Philippines</option>
+                <option value="TH">Thailand</option>
+                <option value="IN">India</option>
+                <!-- Add as many countries as needed, this is just a small subset -->
+            </select>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="title-container">
+            <h1>YouTube Trending Videos</h1>
+        </div>
+
+        <!-- Displaying Trending Videos -->
+        <div class="video-grid" id="videos-list"></div>
+    </div>
+
+    <script>
+        const API_KEY = 'AIzaSyBdl07avew5rDTT-BsQgSPJhspQTPPUZp8'; // Your YouTube API key
+        let selectedCountry = 'IN'; // Default to India
+        let selectedCategory = 'now'; // Default to 'Now' category
+
+        // Function to load trending videos based on selected category
+        function loadTrendingVideos(categoryId) {
+            selectedCategory = categoryId; // Update selected category
+            let url = '';
+
+            if (categoryId === 'now') {
+                url = `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&chart=mostPopular&regionCode=${selectedCountry}&maxResults=50&key=${API_KEY}`;
+            } else if (categoryId === '10') {
+                url = `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&chart=mostPopular&videoCategoryId=10&regionCode=${selectedCountry}&maxResults=50&key=${API_KEY}`;
+            } else if (categoryId === '20') {
+                url = `https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&chart=mostPopular&videoCategoryId=20&regionCode=${selectedCountry}&maxResults=50&key=${API_KEY}`;
+            }
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => displayVideos(data.items))
+                .catch(error => console.error('Error fetching data:', error));
+        }
+
+        // Function to display trending videos in the grid
+        function displayVideos(videos) {
+            const videosList = document.getElementById('videos-list');
+            videosList.innerHTML = ''; // Clear existing videos
+
+            if (!videos.length) {
+                videosList.innerHTML = "<p>No videos available for the selected category.</p>";
+                return;
+            }
+
+            videos.forEach(video => {
+                const videoItem = document.createElement('div');
+                videoItem.classList.add('video-item');
+
+                // Thumbnail
+                const thumbnail = document.createElement('img');
+                thumbnail.src = video.snippet.thumbnails.high.url;
+                thumbnail.alt = video.snippet.title;
+                thumbnail.classList.add('video-thumbnail');
+
+                // Video Details
+                const videoDetails = document.createElement('div');
+                videoDetails.classList.add('video-details');
+
+                // Title
+                const title = document.createElement('a');
+                title.href = `https://www.youtube.com/watch?v=${video.id}`;
+                title.target = '_blank';
+                title.classList.add('video-title');
+                title.textContent = truncateTitle(video.snippet.title, 50); // Truncated title
+
+                // Append to video item
+                videoDetails.appendChild(title);
+                videoItem.appendChild(thumbnail);
+                videoItem.appendChild(videoDetails);
+
+                // Add the video item to the grid
+                videosList.appendChild(videoItem);
+            });
+        }
+
+        // Function to truncate the title to 50 characters
+        function truncateTitle(title, maxLength) {
+            if (title.length > maxLength) {
+                return title.substring(0, maxLength) + '...';
+            }
+            return title;
+        }
+
+        // Function to change country and reload videos
+        function loadTrendingVideosByCountry() {
+            selectedCountry = document.getElementById('country-select').value;
+            loadTrendingVideos(selectedCategory);
+        }
+
+        // Initialize the page with the default category (Now)
+        window.onload = () => loadTrendingVideos('now');
+    </script>
+
+</body>
+</html>
